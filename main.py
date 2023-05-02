@@ -1,8 +1,13 @@
+# autopep8: off
+from dotenv import load_dotenv
+load_dotenv(".env")
 from fastapi import FastAPI
 from routers.users import router as user_router
 from routers.courses import router as course_router
 from db.setup import engine
 from db.models import user, course
+# autopep8: on
+
 
 user.Base.metadata.create_all(bind=engine)
 course.Base.metadata.create_all(bind=engine)

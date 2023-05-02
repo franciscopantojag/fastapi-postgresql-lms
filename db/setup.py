@@ -2,9 +2,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+import os
+from dotenv import load_dotenv
+load_dotenv(".env")
 
-SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://postgres@localhost/fastapi_lms"
-ASYNC_SQLALCHEMY_DATABASE_URL = "postgresql+asyncpg://postgres@localhost/fastapi_lms"
+SQLALCHEMY_DATABASE_URL = os.environ["SQLALCHEMY_DATABASE_URL"]
+ASYNC_SQLALCHEMY_DATABASE_URL = os.environ["ASYNC_SQLALCHEMY_DATABASE_URL"]
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={}, future=True)
 async_engine = create_async_engine(ASYNC_SQLALCHEMY_DATABASE_URL)
