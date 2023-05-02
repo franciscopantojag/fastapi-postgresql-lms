@@ -20,6 +20,7 @@ def create_course(db: Session, course: CourseCreate):
         title=course.title,
         description=course.description,
         user_id=course.user_id
+        # type: ignore
     )
     db.add(db_course)
     db.commit()

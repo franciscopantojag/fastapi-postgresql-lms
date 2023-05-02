@@ -2,8 +2,9 @@ from typing import List
 from fastapi import APIRouter, Depends, HTTPException, status
 from schemas.user import User, UserCreate
 from schemas.course import Course
-from db.setup import get_db
+from db.setup import get_db, async_get_db
 from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import IntegrityError
 from services.user import get_users, create_user, get_user
 from services.course import get_user_courses
@@ -28,8 +29,8 @@ async def create_new_user(user: UserCreate, db: Session = Depends(get_db)):
 
 
 @router.get('/{id}', response_model=User)
-async def read_user(id: int, db: Session = Depends(get_db)):
-    db_user = get_user(db, id)
+async def read_user(id: int, db: AsyncSession = Depends(async_get_db)):
+    db_user = await get_user(db, id)
     if db_user is not None:
         return db_user
     raise HTTPException(status.HTTP_404_NOT_FOUND, "User not found")
