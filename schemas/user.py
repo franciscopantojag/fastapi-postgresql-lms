@@ -1,10 +1,11 @@
 from pydantic import BaseModel
 from datetime import datetime
+from typing import Literal
 
 
 class UserBase(BaseModel):
     email: str
-    role: int
+    role: Literal[1, 2]
 
 
 class UserCreate(UserBase):
